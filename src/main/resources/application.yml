@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: ai
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      init:
+        pull-model-strategy: never
+        timeout: 5m
+      chat:
+        model: llama3.2:3b
+        format:
+    embedding:
+      model: ollama
+      ollama:
+        base-url: http://localhost:11434
+        embedding-model: mxbai-embed-large
+        init:
+          pull-model-strategy: never
+          timeout: 5m
+    vectorstore:
+      qdrant:
+        host: localhost
+        port: 6333
+        grpc-port: 6334
+        collection-name: spring-ai-demo
+        initialize-schema: false
