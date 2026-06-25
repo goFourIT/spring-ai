@@ -26,3 +26,15 @@ spring:
         grpc-port: 6334
         collection-name: spring-ai-demo
         initialize-schema: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring-ai
+    username: myapp
+    password: myapp
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
