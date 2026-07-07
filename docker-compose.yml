@@ -39,6 +39,7 @@ services:
       - POSTGRES_PASSWORD=myapp
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U myapp -d spring-ai"]
       interval: 10s
