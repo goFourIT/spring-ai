@@ -1,6 +1,6 @@
 package io.github.go4it.ai.controller;
 
-import io.github.go4it.ai.dto.Message;
+import io.github.go4it.ai.dto.MessageDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
@@ -22,14 +22,14 @@ public class ChatController {
     }
 
     @PostMapping
-    Message chat(@RequestBody final Message message) {
+    MessageDto chat(@RequestBody final MessageDto messageDto) {
         LOGGER.info("Chat request came");
 
         final String responseContent = chatClient.prompt()
-                .user(message.content())
+                .user(messageDto.content())
                 .call()
                 .content();
 
-        return new Message(responseContent);
+        return new MessageDto(responseContent);
     }
 }
