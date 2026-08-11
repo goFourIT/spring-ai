@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ai
+    name: spring-ai-chat
 
   ai:
     ollama:
@@ -35,12 +35,33 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics
+  opentelemetry:
+    resource:
+      attributes:
+        service.name: spring-ai-chat
+        service.version: 0.0.1
+        deployment.environment: local
+        service.instance.id: instance-1
+        job.name: chat-service
+        application.name: "${spring.application.name}"
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/traces
+    logging:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/logs
+  tracing:
+    sampling:
+      probability: 1.0
