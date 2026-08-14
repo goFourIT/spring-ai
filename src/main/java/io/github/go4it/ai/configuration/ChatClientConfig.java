@@ -1,5 +1,6 @@
 package io.github.go4it.ai.configuration;
 
+import io.github.go4it.ai.advisor.LogAdvisor;
 import io.github.go4it.ai.tool.DateTimeTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -30,10 +31,11 @@ public class ChatClientConfig {
     public ChatClient chatClient(
             ChatClient.Builder chatClientBuilder,
             MessageChatMemoryAdvisor messageChatMemoryAdvisor,
+            LogAdvisor logAdvisor,
             DateTimeTools dateTimeTools
     ) {
         return chatClientBuilder.defaultSystem("You're a helpful assistant. Use tools only if you think are useful")
-                .defaultAdvisors(messageChatMemoryAdvisor)
+                .defaultAdvisors(logAdvisor, messageChatMemoryAdvisor)
                 .defaultTools(dateTimeTools)
                 .build();
     }
