@@ -3,6 +3,11 @@ spring:
     name: spring-ai-chat
 
   ai:
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
     ollama:
       base-url: http://localhost:11434
       init:
