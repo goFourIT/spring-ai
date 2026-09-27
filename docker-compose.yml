@@ -1,7 +1,14 @@
 services:
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:rocm
     container_name: ollama
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - "990"  # host's "render" group GID; the image's /etc/group has no "render" entry to resolve by name
+    environment:
+      - ROCR_VISIBLE_DEVICES=0  # pin to the discrete RX 9070 XT (renderD128/PCI 03:00.0), skip the Granite Ridge iGPU
     ports:
       - "11434:11434"  # HTTP API
     volumes:
